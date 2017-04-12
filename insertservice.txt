@@ -1,0 +1,56 @@
+<%@include file="connection.jsp"%>
+<%
+String car_plate=request.getParameter("car_plate");
+String car_type=request.getParameter("car_type");
+String service=request.getParameter("service");
+String date=request.getParameter("booktime");
+
+out.println(car_plate);
+out.println(car_type);
+out.println(service);
+out.println(booktime);
+
+
+Connection conn = null;
+PreparedStatement pstmt = null;
+ResultSet rs = null;
+
+conn = getConnected();
+String sql = "select count(*) from member where no_staf =?";
+pstmt=conn.prepareStatement(sql);
+pstmt.clearParameters();
+pstmt.setString(1,nostaf);
+
+rs = pstmt.executeQuery();
+
+rs.next();	
+int count = rs.getInt(1);
+rs.close();
+pstmt.close();
+
+if (count==0)
+{	   
+String sql_insert = "INSERT INTO member (car_plate,car_type,service,booktime) values (?,?,?,?)";
+	pstmt=conn.prepareStatement(sql_insert);
+	pstmt.clearParameters();
+	pstmt.setString(1,car_plate);
+	pstmt.setString(2,car_type);
+	pstmt.setString(3,service);
+	pstmt.setString(4,booktime);
+
+	int insert=pstmt.executeUpdate();
+	pstmt.close();
+	response.sendRedirect("sah_simpan.jsp"); 
+}
+else
+{
+	response.sendRedirect("error_simpan.jsp");
+		//data telah ada
+}
+
+pstmt.close();
+rs.close();
+conn.close();
+
+
+%>

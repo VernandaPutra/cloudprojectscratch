@@ -1,0 +1,51 @@
+CREATE ANOTHER PAGE PENGESAHAN.JSP
+
+java server page, will not be seen by the user.
+only server site, user can see the code. 
+<%......%> --> this is in JSP coding
+<%@..... --> @ is used to import another file (directive tag) (search in google)
+
+Example:
+<%@ include file  = "connection.jsp"%>
+
+connection.jsp is used to connect to database (will in final exam)
+
+connection conn = null; (important to establish a connection)
+preparedstatement pstmt = null; 
+resultset rs = null; (return the results from query)
+
+connection.jsp file
+
+<%@page import = "java.sql.*"%>
+
+<%!				//want to declare something using %! (becomes a servelet file)
+Driver driver = null;
+String driverUsed = "oracle.jdbc.driver.OracleDriver";
+String serverAddress = "jdbc:oracle:thin:@172.16.
+
+Need to have:
+
+JSP connect with Oracle DB, we need:
+
+1) Driver class: The driver is oracle.jdbc.driver.OracleDriver
+2) Connection URL: The connection URL for oracle10G database is jdbc:oracle:thin:@localhost:1521:xe
+or
+jdbc:oracle:thin:@172.16.60.13:1521:orcl //port number + service name 
+
+get all these info in tnsnames.ora file in sql folder
+
+STEPS TO CALL CONNECTION:
+
+1) load the driver class - DriverManager.getConnection("jdbc:oracle:thin:@172.16.60.13:1521:orcl", "userid", "userpwd");
+2) create connection object
+3) create the statement object: createStatement();
+4) execute query: executeQuery();
+5) process the resultSet --> to store the return value from SELECT query
+6) close the connection object. 
+
+string user = "INSERT_USERNAME_HERE";
+string password = "INSERT_PWD_HERE";
+
+
+
+
